@@ -1,0 +1,52 @@
+# Binary and object files
+*.o
+*.a
+*.so
+*.exe
+*.test
+*.prof
+
+# Go specific
+bin/
+pkg/
+vendor/
+
+# Generated files
+*.gen.go
+
+# OS-specific files
+.DS_Store
+*.swp
+*.swo
+*.bak
+*.tmp
+*~
+
+# IDE-specific (e.g., VSCode, GoLand, IntelliJ, etc.)
+.vscode/
+.idea/
+*.iml
+
+# Dependency directories (if not using Go Modules)
+Godeps/
+_node_modules/
+
+# Logs
+logs/
+*.log
+
+# Environment variables and secrets
+.env
+
+# Database files (if using SQLite or similar)
+*.db
+*.sqlite
+
+# Certificates
+
+*.crt
+*.key
+
+# Miscellaneous
+*.pid
+*.seed
