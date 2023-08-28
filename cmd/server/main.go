@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/etozhedin/go_online_shop/api/handlers"
-	"github.com/etozhedin/go_online_shop/database"
+	"online_shop/api/handlers"
+	"online_shop/database"
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
