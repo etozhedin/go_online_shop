@@ -1,0 +1,22 @@
+version: '3.8'
+services: 
+  myApi: 
+    image: github.com/etozhedin/go_online_shop:latest
+    container_name: api 
+    restart: always 
+    environment: 
+      - APP_PORT 
+      - APP_SECRET_KEY 
+      - DB_HOST 
+      - DB_PORT 
+      - DB_NAME 
+      - DB_USER 
+      - DB_PASSWORD 
+  db: 
+    image: postgres 
+    container_name: postgres 
+    restart: always 
+    environment: 
+      POSTGRES_USER: ${DB_USER} 
+      POSTGRES_PASSWORD: ${DB_PASSWORD} 
+      POSTGRES_DB: ${DB_NAME}
