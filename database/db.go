@@ -1,4 +1,4 @@
-package databse
+package database
 
 import (
 	"fmt"
@@ -43,4 +43,8 @@ func Close() {
 		log.Fatal("Failed to retrieve underlying SQL database:", err)
 	}
 	sqlDB.Close()
+}
+func AddProduct(product *models.Product) error {
+	result := DB.Create(&product)
+	return result.Error
 }

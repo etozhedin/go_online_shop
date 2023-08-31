@@ -18,7 +18,17 @@ func init() {
 }
 func main() {
 	database.Connect()
-	defer database.GetDB().Close()
+	defer database.Close()
+
+	products, err := database.GetAllProducts()
+	if err != nil {
+		log.Fatalf("Error fetching products: %v", err)
+	}
+
+	for _, product := range products {
+		log.Printf("ID: %d, Name: %s, Description: %s, Price: %f, Image: %s", product.ID, product.Name, product.Description, product.Price, product.ImageURL)
+	}
+
 	r := mux.NewRouter()
 	handlers.RegisterRoutes(r)
 	port := "8080"
