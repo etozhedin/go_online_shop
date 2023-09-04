@@ -86,9 +86,16 @@ func DeleteProductByIdHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Successfully deleted"))
 }
+
+func PingHandler(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("pong"))
+}
+
 func RegisterRoutes(r *mux.Router) {
 	r.HandleFunc("/products/{id:[0-9]+}", DeleteProductByIdHandler).Methods("DELETE")
 	r.HandleFunc("/products/{id:[0-9]+}", GetProductByIdHandler).Methods("GET")
 	r.HandleFunc("/products", GetProductsHandler).Methods("GET")
 	r.HandleFunc("/products", AddProductHandler).Methods("POST")
+	r.HandleFunc("/ping", PingHandler).Methods("GET")
 }

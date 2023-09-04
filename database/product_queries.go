@@ -12,6 +12,7 @@ func GetAllProducts() ([]models.Product, error) {
 
 	return products, nil
 }
+
 func GetProductById(id int) (models.Product, error) {
 	var product models.Product
 	result := DB.First(&product, id)
@@ -20,6 +21,7 @@ func GetProductById(id int) (models.Product, error) {
 	}
 	return product, nil
 }
+
 func DeleteProductById(id int) error {
 	var product models.Product
 	result := DB.Delete(&product, id)
