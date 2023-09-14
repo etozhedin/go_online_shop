@@ -2,7 +2,9 @@ package handlers
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
+	"online_shop/database"
 	"online_shop/models"
 
 	"golang.org/x/crypto/bcrypt"
@@ -28,6 +30,8 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid input", http.StatusBadRequest)
 		return
 	}
+	defer r.Body.Close()
+
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 	if err != nil {
 		http.Error(w, "Error hashing password", http.StatusInternalServerError)
@@ -47,5 +51,19 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte("user list"))
 	json.NewEncoder(w).Encode(user)
+}
 
+func GetUsersHandler(w http.ResponseWriter, r *http.Request) {
+	users, err := database.GetUsersList()
+	if err != nil {
+		log.Printf("Error fetching users: %v", err)
+		http.Error(w, "Server error", http.StatusInternalServerError)
+		return
+	}
+	if len(users) == 0 {
+		w.Write([]byte("no users found"))
+		return
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(users)
 }

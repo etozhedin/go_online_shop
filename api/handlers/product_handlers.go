@@ -93,12 +93,14 @@ func PingHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func RegisterRoutes(r *mux.Router) {
+	//health check
 	r.HandleFunc("/ping", PingHandler).Methods("GET")
-
+	// products
 	r.HandleFunc("/products/{id:[0-9]+}", DeleteProductByIdHandler).Methods("DELETE")
 	r.HandleFunc("/products/{id:[0-9]+}", GetProductByIdHandler).Methods("GET")
 	r.HandleFunc("/products", GetProductsHandler).Methods("GET")
 	r.HandleFunc("/products", AddProductHandler).Methods("POST")
-
+	// users
 	r.HandleFunc("/register", RegisterUser).Methods("POST")
+	r.HandleFunc("/users", GetUsersHandler).Methods("GET")
 }
