@@ -1,0 +1,37 @@
+# version: "3.8"
+# services:
+#   web:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     ports:
+#       - "${APP_PORT}:${APP_PORT}"
+#     depends_on:
+#       - db
+#     environment:
+#       - APP_PORT
+#       - APP_SECRET_KEY
+#       - DB_HOST
+#       - DB_PORT
+#       - DB_NAME
+#       - DB_USER
+#       - DB_PASSWORD
+#       - JWT_SECRET
+#       - JWT_EXPIRATION_MINUTES
+#       - SMTP_SERVER
+#       - SMTP_PORT
+#       - SMTP_USER
+#       - SMTP_PASSWORD
+#       - PAYMENT_GATEWAY_API_KEY
+  
+#   db:
+#     image: postgres:13
+#     container_name: postgres
+#     ports:
+#       - "5432:5432"
+#     environment:
+#       POSTGRES_USER: ${DB_USER}
+#       POSTGRES_PASSWORD: ${DB_PASSWORD}
+#       POSTGRES_DB: ${DB_NAME}
+#     volumes:
+#       - ./postgres-data:/var/lib/postgresql/data

@@ -33,6 +33,11 @@ func Connect() {
 	if err := DB.AutoMigrate(&models.Product{}); err != nil {
 		log.Fatalf("Failed to auto-migrate: %v", err)
 	}
+
+	if err := DB.AutoMigrate(&models.User{}); err != nil {
+		log.Fatalf("Failed to auto-migrate: %v", err)
+	}
+
 }
 func GetDB() *gorm.DB {
 	return DB
