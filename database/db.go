@@ -37,11 +37,12 @@ func Connect() {
 	if err := DB.AutoMigrate(&models.User{}); err != nil {
 		log.Fatalf("Failed to auto-migrate: %v", err)
 	}
-
 }
+
 func GetDB() *gorm.DB {
 	return DB
 }
+
 func Close() {
 	sqlDB, err := DB.DB()
 	if err != nil {
@@ -49,7 +50,13 @@ func Close() {
 	}
 	sqlDB.Close()
 }
+
 func AddProduct(product *models.Product) error {
 	result := DB.Create(&product)
+	return result.Error
+}
+
+func AddUser(user *models.User) error {
+	result := DB.Create(&user)
 	return result.Error
 }

@@ -2,12 +2,12 @@ package database
 
 import "online_shop/models"
 
-func GetUsersList() ([]models.User, error) {
-	var users []models.User
+func GetUsersNicknames() ([]string, error) {
+	var nicknames []string
 
-	result := DB.Find(&users)
+	result := DB.Model(&models.User{}).Select("username").Find(&nicknames)
 	if result.Error != nil {
 		return nil, result.Error
 	}
-	return users, nil
+	return nicknames, nil
 }

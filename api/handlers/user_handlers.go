@@ -8,10 +8,9 @@ import (
 	"online_shop/models"
 
 	"golang.org/x/crypto/bcrypt"
-	"gorm.io/gorm"
 )
 
-var DB *gorm.DB
+// var DB *gorm.DB
 
 type RegistrationInput struct {
 	Username string `json:"Username"`
@@ -30,13 +29,14 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid input", http.StatusBadRequest)
 		return
 	}
-	defer r.Body.Close()
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
+
 	if err != nil {
 		http.Error(w, "Error hashing password", http.StatusInternalServerError)
 		return
 	}
+
 	user := models.User{
 		Username: input.Username,
 		Email:    input.Email,
@@ -44,17 +44,16 @@ func RegisterUser(w http.ResponseWriter, r *http.Request) {
 		Role:     "user",
 		IsActive: true,
 	}
-	if err := DB.Create(&user).Error; err != nil {
+	if err := database.AddUser(&user); err != nil {
 		http.Error(w, "Error creating database", http.StatusBadRequest)
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte("user list"))
 	json.NewEncoder(w).Encode(user)
 }
 
 func GetUsersHandler(w http.ResponseWriter, r *http.Request) {
-	users, err := database.GetUsersList()
+	users, err := database.GetUsersNicknames()
 	if err != nil {
 		log.Printf("Error fetching users: %v", err)
 		http.Error(w, "Server error", http.StatusInternalServerError)
